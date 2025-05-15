@@ -1,0 +1,4 @@
+*.exe
+bin/*.obj 
+bin/*.o 
+bin/*.ptx
