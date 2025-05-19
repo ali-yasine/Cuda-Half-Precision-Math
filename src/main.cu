@@ -188,9 +188,6 @@ int main() {
     printf("-----------------------------------------------------------------------------------------------\n");
 
 
-    // Run warmup kernel
-    unary_op_kernel<FastReciprocal><<<numBlocks,threadsPerBlock>>>(d_in, d_custom_out, d_timing_data, n_samples, iterations);
-    cudaDeviceSynchronize();
 
     // Reciprocal 
     run_unary_test<FastReciprocal>(
