@@ -3,18 +3,20 @@
 
 #include <string>
 #include <bit>
+#include <cstdint>
+#include <cstdio>
 
-#define CUDA_CHECK(err)                                                        \
-    do {                                                                       \
-        cudaError_t err_ = (err);                                              \
-        if (err_ != cudaSuccess) {                                             \
-            fprintf(stderr, "CUDA error %d at %s:%d: %s\n", err_, __FILE__,    \
-                    __LINE__, cudaGetErrorString(err_));                       \
-            exit(EXIT_FAILURE);                                                \
-        }                                                                      \
-    } while (0)
-
-
+#define cudaErrCheck(val) check((val), #val, __FILE__, __LINE__)
+inline void check(cudaError_t err, const char* const func, const char* const file, const int line) {
+    if (err != cudaSuccess) {
+        // std::cerr << "CUDA Runtime Error at: " << file << ":" << line
+        //     << std::endl;
+        // std::cerr << cudaGetErrorString(err) << " " << func << std::endl;
+        printf("CUDA Runtime Error at: %s:%d\n", file, line);
+        printf("%s %s\n", cudaGetErrorString(err), func);
+        abort();
+    }
+}
 
 __host__ __device__ consteval uint16_t float_to_fp16_bits(float value) noexcept {
     uint32_t bits = std::bit_cast<uint32_t>(value);

@@ -19,7 +19,7 @@
 //TODO: add error handling for x = 0
 template<bool precise = true>
 static inline __device__ half fast_hrcp(half x) {
-    // magic constant representing n = USHORT_MAX - (1 << N) + K where K = 2^N * root of m_k^2 +8m_k -8 = 0
+    // magic constant representing n = SHORT_MAX - (1 << N) + K where K = 2^N * root of m_k^2 +8m_k -8 = 0
     constexpr short MAGIC1 = SHRT_MAX - (3<<N) + ((1<<N)*0.899f);
     half y0 = __ushort_as_half(MAGIC1 - __half_as_ushort(x));
     

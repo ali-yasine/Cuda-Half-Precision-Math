@@ -53,6 +53,7 @@ struct FastSqrt {
         }
     }
 };
+
 struct BuiltinSqrt {
     __device__ __forceinline__ half operator()(half x) const {
         return hsqrt(x);
@@ -79,6 +80,7 @@ struct FastExp {
         }
     }
 };
+
 struct BuiltinExp {
     __device__ __forceinline__ half operator()(half x) const {
         return hexp(x);
