@@ -131,6 +131,17 @@ static inline __device__ half fast_log(half x) {
 
 
 
+static inline __device__ half convert_sin(half x) {
+    float y = __half2float(x);
+    asm volatile ("sin.approx.ftz.f32 %0, %0;" : "+f"(y));
+    return __float2half(y);
+}
+
+static inline __device__ half convert_cos(half x) {
+    float y = __half2float(x);
+    asm volatile ("cos.approx.ftz.f32 %0, %0;" : "+f"(y));
+    return __float2half(y);
+}
 
 #undef N
 #undef B

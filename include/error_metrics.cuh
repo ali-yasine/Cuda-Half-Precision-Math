@@ -156,6 +156,62 @@ struct BuiltinDivision {
     }
 };
 
+struct BuiltinSine {
+    __device__ __forceinline__ half operator()(half x) const {
+        return hsin(x);
+    }
+    static float err(float xf, float af) {
+        float tv = sinf(xf);
+        if (fabsf(tv) < 1e-9f) {
+            return fabsf(af - tv);
+        } else {
+            return fabsf(1.0f - af / tv);
+        }
+    }
+};
+
+
+struct ConversionSine {
+    __device__ __forceinline__ half operator()(half x) const {
+        return convert_sin(x);
+    }
+    static float err(float xf, float af) {
+        float tv = sinf(xf);
+        if (fabsf(tv) < 1e-9f) {
+            return fabsf(af - tv);
+        } else {
+            return fabsf(1.0f - af / tv);
+        }
+    }
+};
+
+struct BuiltinCosine {
+    __device__ __forceinline__ half operator()(half x) const {
+        return hcos(x);
+    }
+    static float err(float xf, float af) {
+        float tv = cosf(xf);
+        if (fabsf(tv) < 1e-9f) {
+            return fabsf(af - tv);
+        } else {
+            return fabsf(1.0f - af / tv);
+        }
+    }
+};
+
+struct ConversionCosine {
+    __device__ __forceinline__ half operator()(half x) const {
+        return convert_cos(x);
+    }
+    static float err(float xf, float af) {
+        float tv = cosf(xf);
+        if (fabsf(tv) < 1e-9f) {
+            return fabsf(af - tv);
+        } else {
+            return fabsf(1.0f - af / tv);
+        }
+    }
+};
 
 template<typename Op>
 void compute_errors_unary(const half* in,

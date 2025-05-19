@@ -273,6 +273,35 @@ int main() {
         numBlocks, threadsPerBlock, n_samples, iterations
     );
 
+    run_unary_test<ConversionSine>(
+        "Sin.Convert",
+        d_in, d_custom_out, d_timing_data,
+        h_rec_in, h_out_custom, h_timing_data,
+        numBlocks, threadsPerBlock, n_samples, iterations
+    );
+
+    run_unary_test<BuiltinSine>(
+        "Sin.BuiltIn",
+        d_in, d_builtin_out, d_timing_data,
+        h_rec_in, h_out_builtin, h_timing_data,
+        numBlocks, threadsPerBlock, n_samples, iterations
+    );
+
+    run_unary_test<ConversionCosine>(
+        "Cos.Convert",
+        d_in, d_builtin_out, d_timing_data,
+        h_rec_in, h_out_builtin, h_timing_data,
+        numBlocks, threadsPerBlock, n_samples, iterations
+    );
+    
+    run_unary_test<BuiltinCosine>(
+        "Cos.BuiltIn",
+        d_in, d_custom_out, d_timing_data,
+        h_rec_in, h_out_custom, h_timing_data,
+        numBlocks, threadsPerBlock, n_samples, iterations
+    );
+
+
     //  Cleanup 
     cudaErrCheck(cudaFree(d_in)); 
     cudaErrCheck(cudaFree(d_custom_out)); 
