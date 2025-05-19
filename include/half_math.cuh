@@ -18,7 +18,7 @@
 
 //TODO: add error handling for x = 0
 template<bool precise = true>
-static inline __device__ half fast_hrcp(half x) {
+static inline __device__ half fast_rcp(half x) {
     // magic constant representing n = SHORT_MAX - (1 << N) + K where K = 2^N * root of m_k^2 +8m_k -8 = 0
     constexpr short MAGIC1 = SHRT_MAX - (3<<N) + ((1<<N)*0.899f);
     half y0 = __ushort_as_half(MAGIC1 - __half_as_ushort(x));
@@ -35,7 +35,7 @@ static inline __device__ half fast_hrcp(half x) {
 
 //TODO: add error handling for y = 0
 static inline __device__ half fast_div(half x, half y) {
-    half w = fast_hrcp<true>(y); // w ~ 1/y
+    half w = fast_rcp<true>(y); // w ~ 1/y
     half z0 = w * y;
     half z = __hfma(w, __hfma(x, z0, __hneg(y)), z0);
     return z; 

@@ -5,7 +5,7 @@
 
 struct FastReciprocal {
     __device__ __forceinline__ half operator()(half x) const {
-        return fast_hrcp(x);
+        return fast_rcp(x);
     }
     static float err(float xf, float af) {
         // 1.0f − x * result

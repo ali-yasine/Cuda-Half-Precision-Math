@@ -4,3 +4,4 @@ bin/*.o
 bin/*.ptx
 full_tests.ncu-rep
 full_testslog
+.vscode/
